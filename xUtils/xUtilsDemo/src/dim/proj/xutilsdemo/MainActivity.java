@@ -2,7 +2,9 @@ package dim.proj.xutilsdemo;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.ResType;
 import com.lidroid.xutils.view.annotation.ContentView;
+import com.lidroid.xutils.view.annotation.ResInject;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnFocusChange;
@@ -17,30 +19,40 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author lin
+ *view 模块包括：
+ *1、视图注入
+ *2、事件注入
+ *3、资源注入
+ */
 //setContentView()
 @ContentView(R.layout.activity_main)
 
 public class MainActivity extends Activity {
 	private final static String TAG="xUtils Demo--->>";
 	//findViewById();
+	//view 注入
 	@ViewInject(R.id.textTitle)
 	TextView textTitle;
+	
+	//资源注入  需注明注入的资源类型
+	//  Animation,  Boolean,  Color,  ColorStateList,  Dimension,  
+	//DimensionPixelOffset,  DimensionPixelSize,  Drawable,  
+	//Integer,  IntArray,  Movie,  String,  StringArray,  Text,  TextArray,  Xml;
+
+	 @ResInject(id=R.string.app_name, type =  ResType.String)
+	 String app_name;
 	 
-	//按钮点击监听
+	//按钮点击监听  事件注入
 	@OnClick(R.id.btnView)
 	public  void btnViewClick(View v)
 	{
-		  LogUtils.allowI=true;
-		  LogUtils.allowD=true;
-		  //v.getId()==R.id.btnView?
-		//  Log.i(TAG, " log"+v.getId());
-		//  LogUtils.d(TAG+v.getId());
-		  Log.i(TAG, " log"+v.getId());
 		 
 			Intent viewDemoI=new Intent().setClass(MainActivity.this, ViewDemoActivity.class);
 			startActivity(viewDemoI);
@@ -71,7 +83,7 @@ public class MainActivity extends Activity {
 	@OnLongClick(R.id.btnView)
 	public void btnViewLClick(View v)
 	{
-		
+
 	}
 	
 	//焦点变化监听
